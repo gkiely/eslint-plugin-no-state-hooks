@@ -23,12 +23,8 @@ export const rule = createRule<[], 'no-state&&'>({
     return {
       CallExpression: node => {
         assertType<{ name: string }>(node.callee);
-        const callee = node.callee;
-        if (callee.name === 'useState' || callee.name === 'useReducer') {
-          if (node.arguments[0]?.type === 'CallExpression') {
-            assertType<{ name: string }>(node.arguments[0].callee);
-            if (node.arguments[0].callee.name === 'render') return;
-          }
+        const name = node.callee.name;
+        if (name === 'useState' || name === 'useReducer') {
           context.report({
             node,
             messageId: 'no-state&&',

@@ -23,17 +23,6 @@ ruleTester.run('no-state-hooks', rule, {
         };
       `,
     },
-    {
-      code: `
-        // Allow updating render
-        const Component = () => {
-          const [route, setRoute] = useState<RouteConfig>(
-            render(snapshot.context, snapshot, routeSnapshot.context)
-          );
-          return <></>;
-        };
-      `,
-    },
   ],
   invalid: [
     {
