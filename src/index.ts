@@ -25,10 +25,7 @@ export const rule = createRule<[], 'no-state&&'>({
         assertType<{ name: string }>(node.callee);
         const callee = node.callee;
         if (callee.name === 'useState' || callee.name === 'useReducer') {
-          if (
-            node.arguments[0] &&
-            node.arguments[0].type === 'CallExpression'
-          ) {
+          if (node.arguments[0]?.type === 'CallExpression') {
             assertType<{ name: string }>(node.arguments[0].callee);
             if (node.arguments[0].callee.name === 'render') return;
           }
